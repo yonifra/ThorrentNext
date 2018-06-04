@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textSize="24dp"
+        android:textAppearance="@style/Base.ThemeOverlay.AppCompat.Dark"
+        android:id="@+id/item_title"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/item_title"
+        android:text="Description"
+        android:textSize="16dp"
+        android:textAppearance="@style/Base.ThemeOverlay.AppCompat.Dark"
+        android:id="@+id/item_description"/>
+</android.support.constraint.ConstraintLayout>
