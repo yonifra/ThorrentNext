@@ -8,7 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.cryptocodes.thorrentnext.R;
-import com.cryptocodes.thorrentnext.tools.TitleParser;
+import com.cryptocodes.thorrentnext.entities.Movie;
+import com.cryptocodes.thorrentnext.tools.TorrentParser;
 
 import org.mcsoxford.rss.RSSItem;
 
@@ -42,12 +43,16 @@ public class RssListAdapter extends ArrayAdapter<RSSItem> {
         View rowView = inflater.inflate(R.layout.list_item_layout, viewGroup, false);
         TextView title = rowView.findViewById(R.id.item_title);
         TextView description = rowView.findViewById(R.id.item_description);
+        TextView year = rowView.findViewById(R.id.year_text_view);
         //ImageView imageView = rowView.findViewById(R.id.icon);
 
         RSSItem item = items.get(position);
 
-        title.setText(TitleParser.parse(item.getTitle()));
-        description.setText(item.getDescription());
+        Movie movie = TorrentParser.parseMovie(item.getTitle());
+
+        year.setText(String.valueOf(movie.getYear()));
+        title.setText(movie.getTitle());
+        description.setText("From filmmaker Steven Spielberg comes the science fiction action adventure “Ready Player One,” based on Ernest Cline’s bestseller of the same name, which has become a worldwide phenomenon. The film is set in 2045, with the world on the brink of chaos and collapse. But the people have found salvation");
 
 //        if (item.getTitle().startsWith("iPhone")) {
 //            imageView.setImageResource(R.drawable.no);
