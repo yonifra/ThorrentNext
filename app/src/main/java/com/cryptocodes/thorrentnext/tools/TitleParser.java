@@ -9,7 +9,7 @@ public class TitleParser {
         for (int i = 0; i < words.length; i++) {
             String word = words[i];
 
-            if (!word.matches("[(][\\d]+[)]")) {
+            if (!word.matches("(19|20)\\d\\d")) {
                 if (i > 0) {
                     sb.append(" ");
                 }

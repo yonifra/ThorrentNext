@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.cryptocodes.thorrentnext.R;
+import com.cryptocodes.thorrentnext.tools.TitleParser;
 
 import org.mcsoxford.rss.RSSItem;
 
@@ -45,7 +46,7 @@ public class RssListAdapter extends ArrayAdapter<RSSItem> {
 
         RSSItem item = items.get(position);
 
-        title.setText(item.getTitle());
+        title.setText(TitleParser.parse(item.getTitle()));
         description.setText(item.getDescription());
 
 //        if (item.getTitle().startsWith("iPhone")) {
