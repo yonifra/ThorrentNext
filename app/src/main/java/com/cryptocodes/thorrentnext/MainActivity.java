@@ -16,10 +16,16 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.cryptocodes.thorrentnext.adapters.RssListAdapter;
+import com.cryptocodes.thorrentnext.entities.Movie;
+import com.cryptocodes.thorrentnext.tools.TorrentParser;
 
 import org.mcsoxford.rss.RSSFeed;
 import org.mcsoxford.rss.RSSItem;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity
@@ -53,6 +59,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        getItemsByCategory("films");
     }
 
     @Override
@@ -92,13 +100,19 @@ public class MainActivity extends AppCompatActivity
             RSSFeed feed = new RetrieveFeed().execute("http://www.scnsrc.me/category/" + category + "/feed/").get();
             Log.i("FEEDS", feed.getItems().toString());
 
-            for (RSSItem item : feed.getItems()) {
-                // todo: fill the listview here
-                item.getTitle();
+            Set set = new HashSet<String>();
+            List<Movie> items = new ArrayList<>();
 
+            // Remove duplicates
+            for (RSSItem item : feed.getItems()) {
+                Movie movie = TorrentParser.parseMovie(item.getTitle());
+                if (!set.contains(movie.getTitle())) {
+                    set.add(movie.getTitle());
+                    items.add(movie);
+                }
             }
 
-            itemsListView.setAdapter(new RssListAdapter(this.getApplicationContext(), feed.getItems()));
+            itemsListView.setAdapter(new RssListAdapter(this.getApplicationContext(), items, category.equals("movies")));
         } catch (InterruptedException | ExecutionException e) {
             Log.e("RSS_FEED", e.getLocalizedMessage());
         }

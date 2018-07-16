@@ -5,24 +5,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cryptocodes.thorrentnext.R;
 import com.cryptocodes.thorrentnext.entities.Movie;
-import com.cryptocodes.thorrentnext.tools.TorrentParser;
-
-import org.mcsoxford.rss.RSSItem;
+import com.cryptocodes.thorrentnext.tools.TmdbInfoRetriever;
+import com.squareup.picasso.Picasso;
+import com.uwetrottmann.tmdb2.entities.BaseMovie;
 
 import java.util.List;
 
-public class RssListAdapter extends ArrayAdapter<RSSItem> {
-    private List<RSSItem> items;
+public class RssListAdapter extends ArrayAdapter<Movie> {
+    private List<Movie> items;
     private final Context context;
+    private boolean isMovies;
+    private final String posterBasePath = "https://image.tmdb.org/t/p/w500";
 
-    public RssListAdapter(Context context, List<RSSItem> rssItems) {
-        super(context, -1, rssItems);
-        this.items = rssItems;
+    public RssListAdapter(Context context, List<Movie> movies, boolean isMovies) {
+        super(context, -1, movies);
+        this.items = movies;
         this.context = context;
+        this.isMovies = isMovies;
     }
 
     @Override
@@ -44,21 +48,21 @@ public class RssListAdapter extends ArrayAdapter<RSSItem> {
         TextView title = rowView.findViewById(R.id.item_title);
         TextView description = rowView.findViewById(R.id.item_description);
         TextView year = rowView.findViewById(R.id.year_text_view);
-        //ImageView imageView = rowView.findViewById(R.id.icon);
+        ImageView poster = rowView.findViewById(R.id.poster);
 
-        RSSItem item = items.get(position);
+        Movie movie = items.get(position);
 
-        Movie movie = TorrentParser.parseMovie(item.getTitle());
+        if (movie != null) {
+            year.setText(String.valueOf(movie.getYear()));
+            title.setText(movie.getTitle());
 
-        year.setText(String.valueOf(movie.getYear()));
-        title.setText(movie.getTitle());
-        description.setText("From filmmaker Steven Spielberg comes the science fiction action adventure “Ready Player One,” based on Ernest Cline’s bestseller of the same name, which has become a worldwide phenomenon. The film is set in 2045, with the world on the brink of chaos and collapse. But the people have found salvation");
+            BaseMovie m = TmdbInfoRetriever.getInstance().getMovieByName(movie.getTitle());
 
-//        if (item.getTitle().startsWith("iPhone")) {
-//            imageView.setImageResource(R.drawable.no);
-//        } else {
-//            imageView.setImageResource(R.drawable.ok);
-//        }
+            if (m != null) {
+                description.setText(m.overview);
+                Picasso.get().load(posterBasePath + m.poster_path).into(poster);
+            }
+        }
 
         return rowView;
     }
