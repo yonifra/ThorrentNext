@@ -4,5 +4,5 @@ This is the next version of the original Thorrent app developed to scrape torren
 Written in Java for Android
 
 
-![Github Releases](https://img.shields.io/github/downloads/atom/atom/latest/total.svg)
+![Github Releases](https://img.shields.io/github/downloads/yonifra/ThorrentNext/latest/total.svg)
 
