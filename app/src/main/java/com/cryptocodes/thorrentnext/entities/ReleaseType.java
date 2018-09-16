@@ -5,5 +5,8 @@ public enum ReleaseType {
     WebRip,
     Hdtv,
     Cam,
+    Dvdrip,
+    FourK,
+    EightK,
     Unknown
 }

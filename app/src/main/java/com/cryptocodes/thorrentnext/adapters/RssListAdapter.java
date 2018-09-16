@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.cryptocodes.thorrentnext.R;
 import com.cryptocodes.thorrentnext.entities.Movie;
+import com.cryptocodes.thorrentnext.entities.ReleaseType;
 import com.cryptocodes.thorrentnext.tools.TmdbInfoRetriever;
 import com.squareup.picasso.Picasso;
 import com.uwetrottmann.tmdb2.entities.BaseMovie;
@@ -37,7 +38,10 @@ public class RssListAdapter extends ArrayAdapter<Movie> {
 
     @Override
     public long getItemId(int i) {
-        return items.get(i).getTitle().hashCode();
+        if (items.get(i).getTitle() != null)
+            return items.get(i).getTitle().hashCode();
+        else
+            return i;
     }
 
     @Override
@@ -46,7 +50,8 @@ public class RssListAdapter extends ArrayAdapter<Movie> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.list_item_layout, viewGroup, false);
         TextView title = rowView.findViewById(R.id.item_title);
-        TextView description = rowView.findViewById(R.id.item_description);
+        TextView releaseType = rowView.findViewById(R.id.release_type_text_view);
+        TextView resolution = rowView.findViewById(R.id.resolution_text_view);
         TextView year = rowView.findViewById(R.id.year_text_view);
         ImageView poster = rowView.findViewById(R.id.poster);
 
@@ -56,14 +61,45 @@ public class RssListAdapter extends ArrayAdapter<Movie> {
             year.setText(String.valueOf(movie.getYear()));
             title.setText(movie.getTitle());
 
+            if (movie.getResolution() != 0) {
+                resolution.setText(String.format("%sp", String.valueOf(movie.getResolution())));
+            }
+
+            if (movie.getReleaseType() != null && movie.getReleaseType() != ReleaseType.Unknown) {
+                releaseType.setText(getReleaseTypeText(movie.getReleaseType()));
+            }
+
             BaseMovie m = TmdbInfoRetriever.getInstance().getMovieByName(movie.getTitle());
 
             if (m != null) {
-                description.setText(m.overview);
                 Picasso.get().load(posterBasePath + m.poster_path).into(poster);
+            } else {
+                // put a placeholder in the imageview
+                Picasso.get().load(R.drawable.ic_movie_black_24dp).into(poster);
             }
         }
 
         return rowView;
+    }
+
+    private String getReleaseTypeText(ReleaseType releaseType) {
+        switch (releaseType) {
+            case FourK:
+                return "4K";
+            case Dvdrip:
+                return "DVDRip";
+            case BluRay:
+                return "BluRay";
+            case EightK:
+                return "8K";
+            case Cam:
+                return "Cam";
+            case Hdtv:
+                return "HDTV";
+            case WebRip:
+                return "WebRip";
+        }
+
+        return "";
     }
 }

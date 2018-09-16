@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-class RetrieveFeed extends AsyncTask<String, Void, RSSFeed> {
+public class RetrieveFeed extends AsyncTask<String, Void, RSSFeed> {
 
     protected RSSFeed doInBackground(String... urls) {
         try {

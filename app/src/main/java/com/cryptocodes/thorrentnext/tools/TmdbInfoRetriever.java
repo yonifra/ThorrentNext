@@ -1,5 +1,7 @@
 package com.cryptocodes.thorrentnext.tools;
 
+import android.os.AsyncTask;
+
 import com.cryptocodes.thorrentnext.Keys;
 import com.cryptocodes.thorrentnext.RetrieveTmdbData;
 import com.uwetrottmann.tmdb2.Tmdb;
@@ -7,8 +9,6 @@ import com.uwetrottmann.tmdb2.entities.BaseMovie;
 import com.uwetrottmann.tmdb2.services.MoviesService;
 import com.uwetrottmann.tmdb2.services.SearchService;
 import com.uwetrottmann.tmdb2.services.TvService;
-
-import java.util.concurrent.ExecutionException;
 
 public class TmdbInfoRetriever {
     private MoviesService moviesService;
@@ -34,11 +34,7 @@ public class TmdbInfoRetriever {
     }
 
     public BaseMovie getMovieByName(String movieName) {
-        try {
-            return new RetrieveTmdbData().execute(movieName).get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        new RetrieveTmdbData().execute(movieName);
 
         return null;
     }

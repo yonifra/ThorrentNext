@@ -9,6 +9,7 @@ public class MediaItem {
     private Date releaseDate;
     private Date uploadDate;
     private ReleaseType releaseType;
+    private int resolution;
 
     public void setTitle(String title) {
         this.title = title;
@@ -56,5 +57,13 @@ public class MediaItem {
 
     public Date getUploadDate() {
         return uploadDate;
+    }
+
+    public void setResolution(int res) {
+        resolution = res;
+    }
+
+    public int getResolution() {
+        return resolution;
     }
 }
