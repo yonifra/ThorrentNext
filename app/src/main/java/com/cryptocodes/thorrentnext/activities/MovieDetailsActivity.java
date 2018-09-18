@@ -10,6 +10,7 @@ import com.cryptocodes.thorrentnext.RetrieveTmdbData;
 import com.squareup.picasso.Picasso;
 import com.uwetrottmann.tmdb2.entities.BaseMovie;
 
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class MovieDetailsActivity extends AppCompatActivity {
@@ -25,7 +26,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         TextView title = findViewById(R.id.movie_title);
         TextView description = findViewById(R.id.description_text_view);
+        TextView rating = findViewById(R.id.rating_text_view);
+        TextView voteCount = findViewById(R.id.vote_count_text_view);
         ImageView poster = findViewById(R.id.moviePosterImage);
+        ImageView backdrop = findViewById(R.id.backdrop_image_view);
 
         String movieTitle = getIntent().getStringExtra("title");
         title.setText(movieTitle);
@@ -34,8 +38,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
             BaseMovie m = new RetrieveTmdbData().execute(movieTitle).get();
 
             title.setText(m.original_title);
-            Picasso.get().load(tmdbBaseImageUrl + largeUrlSuffix + m.poster_path).into(poster);
+            Picasso.get().load(tmdbBaseImageUrl + smallUrlSuffix + m.poster_path).into(poster);
+            Picasso.get().load(tmdbBaseImageUrl + largeUrlSuffix + m.backdrop_path).into(backdrop);
             description.setText(m.overview);
+            rating.setText(String.valueOf(m.vote_average));
+            voteCount.setText(String.format(Locale.US, "(%d votes)", m.vote_count));
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
