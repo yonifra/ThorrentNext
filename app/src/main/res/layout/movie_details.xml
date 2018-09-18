@@ -25,17 +25,17 @@
         android:alpha="1"
         android:src="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_title" />
+        app:layout_constraintTop_toBottomOf="@+id/runtime_text_view" />
 
     <TextView
         android:id="@+id/movie_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="Title"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backdrop_image_view"
         tools:text="Title" />
@@ -51,7 +51,7 @@
         android:lines="@android:integer/status_bar_notification_info_maxnum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/moviePosterImage"
-        app:layout_constraintTop_toBottomOf="@+id/movie_title"
+        app:layout_constraintTop_toBottomOf="@+id/runtime_text_view"
         tools:text="Description" />
 
     <TextView
@@ -96,6 +96,26 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp" />
+
+    <TextView
+        android:id="@+id/runtime_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="124 min"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_title" />
+
+    <TextView
+        android:id="@+id/release_date_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="December 1, 2018"
+        app:layout_constraintStart_toEndOf="@+id/runtime_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/movie_title" />
 
 
 </android.support.constraint.ConstraintLayout>

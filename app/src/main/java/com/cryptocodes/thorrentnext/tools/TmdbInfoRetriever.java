@@ -42,4 +42,8 @@ public class TmdbInfoRetriever {
     public SearchService getSearchService() {
         return searchService;
     }
+
+    public MoviesService getMoviesService() {
+        return moviesService;
+    }
 }

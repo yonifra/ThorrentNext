@@ -1,7 +1,6 @@
 package com.cryptocodes.thorrentnext;
 
 import android.os.AsyncTask;
-import android.view.View;
 
 import com.cryptocodes.thorrentnext.tools.TmdbInfoRetriever;
 import com.uwetrottmann.tmdb2.entities.BaseMovie;
@@ -13,11 +12,6 @@ import java.io.IOException;
 import retrofit2.Call;
 
 public class RetrieveTmdbData extends AsyncTask<String, Void, BaseMovie> {
-
-    //View cell;
-//    public RetrieveTmdbData(View cellView) {
-//        cell = cellView;
-//    }
 
     // Do the long-running work in here
     protected BaseMovie doInBackground(String... query) {
@@ -40,7 +34,13 @@ public class RetrieveTmdbData extends AsyncTask<String, Void, BaseMovie> {
         return null;
     }
 
-//    protected void onPostExecute(BaseMovie result) {
-//        cell.
-//    }
+    protected void onPostExecute(BaseMovie result) {
+//        Intent i = new Intent(MainActivity.this, MovieDetailsActivity.class);
+//        i.putExtra("title", result.title);
+//        i.putExtra("resolution", result.release_date);
+//        i.putExtra("year", result.release_date.getYear());
+//        i.putExtra("releaseType", "DVD");
+//
+//        startActivity(i);
+    }
 }

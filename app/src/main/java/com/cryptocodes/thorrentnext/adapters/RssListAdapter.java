@@ -11,9 +11,7 @@ import android.widget.TextView;
 import com.cryptocodes.thorrentnext.R;
 import com.cryptocodes.thorrentnext.entities.Movie;
 import com.cryptocodes.thorrentnext.entities.ReleaseType;
-import com.cryptocodes.thorrentnext.tools.TmdbInfoRetriever;
 import com.squareup.picasso.Picasso;
-import com.uwetrottmann.tmdb2.entities.BaseMovie;
 
 import java.util.List;
 
@@ -69,14 +67,8 @@ public class RssListAdapter extends ArrayAdapter<Movie> {
                 releaseType.setText(getReleaseTypeText(movie.getReleaseType()));
             }
 
-            BaseMovie m = TmdbInfoRetriever.getInstance().getMovieByName(movie.getTitle());
-
-            if (m != null) {
-                Picasso.get().load(posterBasePath + m.poster_path).into(poster);
-            } else {
-                // put a placeholder in the imageview
-                Picasso.get().load(R.drawable.ic_movie_black_24dp).into(poster);
-            }
+            // put a placeholder in the imageview
+            Picasso.get().load(R.drawable.ic_movie_black_24dp).into(poster);
         }
 
         return rowView;
