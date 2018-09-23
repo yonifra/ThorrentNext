@@ -1,7 +1,10 @@
 package com.cryptocodes.thorrentnext.activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +24,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private static final String tmdbBaseImageUrl = "https://image.tmdb.org/t/p/w";
     private static final String smallUrlSuffix = "185";
     private static final String largeUrlSuffix = "500";
+    private static final String imdbPrefix = "https://www.imdb.com/title/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         TextView releaseDate = findViewById(R.id.release_date_text_view);
         TextView genres = findViewById(R.id.genres_text_view);
         TextView tagline = findViewById(R.id.tagline_text_view);
+        TextView openImdb = findViewById(R.id.open_imdb_text_view);
         ImageView poster = findViewById(R.id.moviePosterImage);
         ImageView backdrop = findViewById(R.id.backdrop_image_view);
 
@@ -48,7 +53,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 return;
             }
 
-            Movie fullMovie = new GetFullMovieDetails().execute(m.id).get();
+            final Movie fullMovie = new GetFullMovieDetails().execute(m.id).get();
 
             if (fullMovie != null) {
                 title.setText(fullMovie.title);
@@ -69,6 +74,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 runtime.setText(String.format("%s mins", String.valueOf(fullMovie.runtime)));
                 releaseDate.setText(android.text.format.DateFormat.format("MMMM d, yyyy", m.release_date));
                 voteCount.setText(String.format(Locale.US, "(%d votes)", m.vote_count));
+
+                openImdb.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(imdbPrefix + fullMovie.imdb_id));
+                        startActivity(intent);
+                    }
+                });
             } else {
                 if (m.original_title != null) {
                     title.setText(m.original_title);
@@ -78,6 +92,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
                 Picasso.get().load(tmdbBaseImageUrl + smallUrlSuffix + m.poster_path).into(poster);
                 Picasso.get().load(tmdbBaseImageUrl + largeUrlSuffix + m.backdrop_path).into(backdrop);
+                openImdb.setText("");
                 description.setText(m.overview);
                 rating.setText(String.valueOf(m.vote_average));
                 releaseDate.setText(android.text.format.DateFormat.format("MMMM d, yyyy", m.release_date));
