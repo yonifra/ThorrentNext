@@ -60,34 +60,75 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
                 Picasso.get().load(tmdbBaseImageUrl + smallUrlSuffix + m.poster_path).into(poster);
                 Picasso.get().load(tmdbBaseImageUrl + largeUrlSuffix + m.backdrop_path).into(backdrop);
-                tagline.setText(fullMovie.tagline);
 
-                StringBuilder sb = new StringBuilder();
-
-                for (Genre genre : fullMovie.genres) {
-                    sb.append(genre.name).append(", ");
+                if (fullMovie.tagline != null && !fullMovie.tagline.isEmpty()) {
+                    tagline.setText(fullMovie.tagline);
+                }
+                else {
+                    tagline.setText(R.string.not_available);
                 }
 
-                genres.setText(sb.toString());
-                description.setText(fullMovie.overview);
-                rating.setText(String.valueOf(fullMovie.vote_average));
-                runtime.setText(String.format("%s mins", String.valueOf(fullMovie.runtime)));
+                if (fullMovie.genres != null && fullMovie.genres.size() > 0) {
+                    StringBuilder sb = new StringBuilder();
+
+                    for (int i = 0; i < fullMovie.genres.size() - 1; i++) {
+                        sb.append(fullMovie.genres.get(i).name);
+                        sb.append(", ");
+                    }
+
+                    sb.append(fullMovie.genres.get(fullMovie.genres.size() - 1).name);
+                    genres.setText(sb.toString());
+                }
+                else {
+                    genres.setText(R.string.no_genres);
+                }
+
+                if (fullMovie.overview != null) {
+                    description.setText(fullMovie.overview);
+                }
+                else {
+                    description.setText(R.string.not_available);
+                }
+
+                if (fullMovie.vote_average != 0) {
+                    rating.setText(String.valueOf(fullMovie.vote_average));
+                }
+                else {
+                    rating.setText(R.string.not_available);
+                }
+
+                if (fullMovie.runtime != null && fullMovie.runtime > 0) {
+                    runtime.setText(String.format("%s mins", String.valueOf(fullMovie.runtime)));
+                }
+                else {
+                    runtime.setText(R.string.not_available);
+                }
+
                 releaseDate.setText(android.text.format.DateFormat.format("MMMM d, yyyy", m.release_date));
+
                 voteCount.setText(String.format(Locale.US, "(%d votes)", m.vote_count));
 
-                openImdb.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(imdbPrefix + fullMovie.imdb_id));
-                        startActivity(intent);
-                    }
-                });
+                if (fullMovie.imdb_id != null && !fullMovie.imdb_id.isEmpty()) {
+                    openImdb.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(imdbPrefix + fullMovie.imdb_id));
+                            startActivity(intent);
+                        }
+                    });
+                }
+                else {
+                    openImdb.setText("");
+                }
             } else {
                 if (m.original_title != null) {
                     title.setText(m.original_title);
                 } else if (m.title != null) {
                     title.setText(m.title);
+                }
+                else {
+                    title.setText(R.string.not_available);
                 }
 
                 Picasso.get().load(tmdbBaseImageUrl + smallUrlSuffix + m.poster_path).into(poster);
