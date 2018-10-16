@@ -1,8 +1,10 @@
 # ThorrentNext
 This is the next version of the original Thorrent app developed to scrape torrent sites and show the user what's newly released on the torrent sites.
 
-Written in Java for Android
+You can find more information about movies and TV shows, get rating information, trailers, synopsis and a quick link to IMDb to see more information about the media item.
 
+Written in Java for Android.
 
 ![Downloads](https://img.shields.io/badge/downloads-10-brightgreen.svg)
+![Build status](https://travis-ci.org/yonifra/ThorrentNext.svg?branch=master)
 
