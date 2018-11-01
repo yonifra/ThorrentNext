@@ -11,6 +11,6 @@ android:
     # Support library
     - extra-android-support
     - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-26
+    - sys-img-armeabi-v7a-android-27
   script:
     - chmod +x ./gradlew
