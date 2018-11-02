@@ -1,7 +1,7 @@
 # ThorrentNext
 
 ![Downloads](https://img.shields.io/badge/downloads-10-brightgreen.svg)
-![Build status](https://travis-ci.org/yonifra/ThorrentNext.svg?branch=master)
+[![Build Status](https://app.bitrise.io/app/bab971bb0afe3463/status.svg?token=tFvB8XuRNBUtGCxzdhWCLA&branch=master)](https://app.bitrise.io/app/bab971bb0afe3463)
 
 This is the next version of the original Thorrent app developed to scrape torrent sites and show the user what's newly released on the torrent sites.
 
