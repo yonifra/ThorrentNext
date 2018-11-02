@@ -1,4 +1,6 @@
 language: android
+jdk:
+  - oraclejdk8
 android:
   components:
     # Update Android SDK Tools
@@ -14,5 +16,7 @@ android:
     - sys-img-armeabi-v7a-android-27
   script:
     - chmod +x ./gradlew
-  licenses:
+licenses:
     - 'android-sdk-license-.+'
+before_install:
+  - yes | sdkmanager "platforms;android-27"
