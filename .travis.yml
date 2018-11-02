@@ -24,11 +24,7 @@ licenses:
 before_install:
   - yes | sdkmanager "platforms;android-27"
 before_script:
-- echo no | android create avd --force -n test -t "android-27" --abi $ANDROID_ABI --tag $ANDROID_TAG
-  emulator -avd test -no-skin -no-audio -no-window &
-  android-wait-for-emulator;
-  sleep 10;
-  adb shell svc power stayon true;
-  sleep 5;
-  adb shell input keyevent 82;
-  ./gradlew --stacktrace connectedFdroidDebugAndroidTest -i;
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+  - emulator -avd test -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
