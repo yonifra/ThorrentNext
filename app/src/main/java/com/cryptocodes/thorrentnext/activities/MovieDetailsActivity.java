@@ -13,7 +13,6 @@ import com.cryptocodes.thorrentnext.R;
 import com.cryptocodes.thorrentnext.RetrieveTmdbData;
 import com.squareup.picasso.Picasso;
 import com.uwetrottmann.tmdb2.entities.BaseMovie;
-import com.uwetrottmann.tmdb2.entities.Genre;
 import com.uwetrottmann.tmdb2.entities.Movie;
 
 import java.util.Locale;
@@ -63,8 +62,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
                 if (fullMovie.tagline != null && !fullMovie.tagline.isEmpty()) {
                     tagline.setText(fullMovie.tagline);
-                }
-                else {
+                } else {
                     tagline.setText(R.string.not_available);
                 }
 
@@ -78,29 +76,25 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
                     sb.append(fullMovie.genres.get(fullMovie.genres.size() - 1).name);
                     genres.setText(sb.toString());
-                }
-                else {
+                } else {
                     genres.setText(R.string.no_genres);
                 }
 
                 if (fullMovie.overview != null) {
                     description.setText(fullMovie.overview);
-                }
-                else {
+                } else {
                     description.setText(R.string.not_available);
                 }
 
                 if (fullMovie.vote_average != 0) {
                     rating.setText(String.valueOf(fullMovie.vote_average));
-                }
-                else {
+                } else {
                     rating.setText(R.string.not_available);
                 }
 
                 if (fullMovie.runtime != null && fullMovie.runtime > 0) {
                     runtime.setText(String.format("%s mins", String.valueOf(fullMovie.runtime)));
-                }
-                else {
+                } else {
                     runtime.setText(R.string.not_available);
                 }
 
@@ -117,8 +111,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                     });
-                }
-                else {
+                } else {
                     openImdb.setText("");
                 }
             } else {
@@ -126,8 +119,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     title.setText(m.original_title);
                 } else if (m.title != null) {
                     title.setText(m.title);
-                }
-                else {
+                } else {
                     title.setText(R.string.not_available);
                 }
 

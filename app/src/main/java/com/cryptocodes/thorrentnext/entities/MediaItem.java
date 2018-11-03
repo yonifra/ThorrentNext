@@ -60,7 +60,9 @@ public class MediaItem {
     }
 
     public void setResolution(int res) {
-        resolution = res;
+        if (res > resolution) {
+            resolution = res;
+        }
     }
 
     public int getResolution() {

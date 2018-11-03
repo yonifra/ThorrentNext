@@ -1,7 +1,5 @@
 package com.cryptocodes.thorrentnext.tools;
 
-import android.os.AsyncTask;
-
 import com.cryptocodes.thorrentnext.Keys;
 import com.cryptocodes.thorrentnext.RetrieveTmdbData;
 import com.uwetrottmann.tmdb2.Tmdb;

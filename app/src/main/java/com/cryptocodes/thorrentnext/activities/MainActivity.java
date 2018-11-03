@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-                    Movie movie = (Movie)itemsListView.getItemAtPosition(position);
+                    Movie movie = (Movie) itemsListView.getItemAtPosition(position);
 
                     Intent i = new Intent(MainActivity.this, MovieDetailsActivity.class);
                     i.putExtra("title", movie.getTitle());
