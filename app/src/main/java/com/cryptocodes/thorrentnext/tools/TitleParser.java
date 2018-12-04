@@ -17,8 +17,6 @@ public class TitleParser {
             } else {
                 break;
             }
-
-
         }
 
         return sb.toString();

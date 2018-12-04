@@ -99,7 +99,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 }
 
                 releaseDate.setText(android.text.format.DateFormat.format("MMMM d, yyyy", m.release_date));
-
                 voteCount.setText(String.format(Locale.US, "(%d votes)", m.vote_count));
 
                 if (fullMovie.imdb_id != null && !fullMovie.imdb_id.isEmpty()) {
