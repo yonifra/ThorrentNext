@@ -67,15 +67,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 }
 
                 if (fullMovie.genres != null && fullMovie.genres.size() > 0) {
-                    StringBuilder sb = new StringBuilder();
-
-                    for (int i = 0; i < fullMovie.genres.size() - 1; i++) {
-                        sb.append(fullMovie.genres.get(i).name);
-                        sb.append(", ");
-                    }
-
-                    sb.append(fullMovie.genres.get(fullMovie.genres.size() - 1).name);
-                    genres.setText(sb.toString());
+                    addGenre(genres, fullMovie);
                 } else {
                     genres.setText(R.string.no_genres);
                 }
@@ -101,18 +93,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 releaseDate.setText(android.text.format.DateFormat.format("MMMM d, yyyy", m.release_date));
                 voteCount.setText(String.format(Locale.US, "(%d votes)", m.vote_count));
 
-                if (fullMovie.imdb_id != null && !fullMovie.imdb_id.isEmpty()) {
-                    openImdb.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setData(Uri.parse(imdbPrefix + fullMovie.imdb_id));
-                            startActivity(intent);
-                        }
-                    });
-                } else {
-                    openImdb.setText("");
-                }
+                handleImdb(openImdb, fullMovie);
             } else {
                 if (m.original_title != null) {
                     title.setText(m.original_title);
@@ -134,5 +115,31 @@ public class MovieDetailsActivity extends AppCompatActivity {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+    }
+
+    private void handleImdb(TextView openImdb, final Movie fullMovie) {
+        if (fullMovie.imdb_id != null && !fullMovie.imdb_id.isEmpty()) {
+            openImdb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(imdbPrefix + fullMovie.imdb_id));
+                    startActivity(intent);
+                }
+            });
+        } else {
+            openImdb.setText("");
+        }
+    }
+
+    private void addGenre(TextView genres, Movie fullMovie) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < fullMovie.genres.size() - 1; i++) {
+            sb.append(fullMovie.genres.get(i).name).append(", ");
+        }
+
+        sb.append(fullMovie.genres.get(fullMovie.genres.size() - 1).name);
+        genres.setText(sb.toString());
     }
 }
